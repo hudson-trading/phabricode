@@ -72,6 +72,7 @@ export class PhabNodeProvider implements vscode.TreeDataProvider<ReviewDependenc
 			}).catch(err => {
 				// TODO: do something
 				console.log(`Error calling diffusion.repository.search: ${err}`);
+				vscode.window.showErrorMessage("Unable to fetch results from Phabricator - please check the logs for details");
 			});
 		}
 		this.phabsToContent = {};
@@ -179,7 +180,6 @@ export class PhabNodeProvider implements vscode.TreeDataProvider<ReviewDependenc
 
 		const filterA = {'constraints[phids][0]': phid};
 		const diff = await RestApi.post(this.phabUrl, 'differential.revision.search', this.phabToken, filterA);
-		console.log(`diff: ${diff}`);
 		const objKey = `D${diff.result.data[0].id}.md`;
 		const uri = vscode.Uri.parse(`phab:${objKey}`);
 		const filterB = {'objectIdentifier': phid};
