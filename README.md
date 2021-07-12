@@ -36,7 +36,7 @@ Use `code --list-extensions` to pick out the extension ID, followed by `code --u
 
 ## Multi-root Workspace
 
-If you use VSCode with a multi-root workspace, you will need to tell `phabricode` which repos map to which folders. Those are defined in the setting called `phabricode.workspace.repoCallSignToWorkspaceFolder` (accessible via the Extension's setting page). The setting should look something like:
+If you use VSCode with a multi-root workspace, you will need to tell `phabricode` which repos map to which folders. Those are defined in the setting called `phabricode.workspace.repoCallSignToWorkspaceFolder` (accessible via the Extension's settings page). The setting should look something like:
 
 ```
 {
@@ -48,7 +48,7 @@ Where `ProjectPepper` is the Phabricator's callsign, and `proj-pepper-src` is th
 
 ### Phabricator's repo callsign
 
-On the Phabricator landing page, select Diffusion (`/diffusion`) and click on a repo. The callsign will be the part in the URL located: `https://phabricator.your-company.com/source/<call sign goes here>/`. 
+On the Phabricator landing page, select Diffusion (`/diffusion`) and click on a repo. The callsign will be the part in the URL located here: `https://phabricator.your-company.com/source/<call sign goes here>/` - so something like `https://phabricator.your-company.com/source/ProjectPepper` in the above.
 
 ### VSCode's folders
 
@@ -58,15 +58,17 @@ Look for a file called `.code-workspace` or `workspace.code-workspace` which sho
 {
         "folders": [
                 {
-                        "path": "project-a"
-                },
-                {
-                        "path": "project-b"
+                        "path": "proj-pepper-src"
                 },
         ],
 ```
+
+## Acknowledgements
+
+This was inspired by @sdutoit's [phabtab](https://github.com/sdutoit/phabtab) extension for Chrome.
 ## Backlog
 
+- Hiding (or strikethrough) comments marked as Done
 - Periodic refresh of phabs (or update notifications)
 - Colour-coding phabs by last update
 - Integrate suggested edits, if they ever get exposed via Conduit (probably the same reason they don't show up in the mail notifications)
