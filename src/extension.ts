@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { PhabNodeProvider } from './phabricode';
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 
 	const myScheme = 'phab';
 
@@ -22,11 +22,13 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(commentController);
 
 	const phabNodeProvider = new PhabNodeProvider(commentController);
+	await phabNodeProvider.setup();
 	vscode.window.registerTreeDataProvider('phabricode', phabNodeProvider);
 	vscode.commands.registerCommand('phabricode.refreshEntry', () => phabNodeProvider.refresh());
 	vscode.commands.registerCommand('phabricode.loadPhab', phab => phabNodeProvider.loadPhab(phab));
 	vscode.commands.registerCommand('phabricode.loadPhabFromUserInput', () => phabNodeProvider.loadPhabFromUserInput());
 	vscode.commands.registerCommand('phabricode.openPhab', obj => vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(`${obj.uri}`)));
+	vscode.commands.registerCommand('phabricode.gitCheckout', phab => phabNodeProvider.gitCheckout(phab));
 
 	
 
