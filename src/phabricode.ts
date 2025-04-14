@@ -276,9 +276,13 @@ export class PhabNodeProvider implements vscode.TreeDataProvider<ReviewDependenc
 				// c.f. constructor as to why we do this
 				const workspaceFolder = this.repoPHIDToWorkspaceFolder.get(rev.data.result.data[0].fields.repositoryPHID);
 				console.log([...this.repoPHIDToWorkspaceFolder.entries()]);
-				uriRoot = vscode.workspace.workspaceFolders.find(item => item.name === workspaceFolder)?.uri.fsPath;
-				console.log(`uriRoot for ${phid} is ${uriRoot}`);
+				let newUriRoot = vscode.workspace.workspaceFolders.find(item => item.name === workspaceFolder)?.uri.fsPath;
+				if (newUriRoot != undefined) {
+					console.log('changing uriRoot from ${uriRoot} to {newUriRoot}');
+					uriRoot = newUriRoot;
+				}
 			}
+			console.log(`uriRoot for ${phid} is ${uriRoot}`);
 		}	
 
 		/*
@@ -427,11 +431,6 @@ export class CommentDependency extends vscode.TreeItem {
 		super(comment.substring(0,10), vscode.TreeItemCollapsibleState.None)
 	}
 
-	iconPath = {
-		light: path.join(__filename, '..', '..', 'resources', 'light', 'dependency.svg'),
-		dark: path.join(__filename, '..', '..', 'media', 'phabricator_eye.png')
-	};
-
 	contextValue = 'dependency';
 }
 export class TopLevelDependency extends vscode.TreeItem {
@@ -442,11 +441,6 @@ export class TopLevelDependency extends vscode.TreeItem {
 	 ) {
 		super(label, collapsibleState);
 	}
-
-	iconPath = {
-		light: path.join(__filename, '..', '..', 'resources', 'light', 'dependency.svg'),
-		dark: path.join(__filename, '..', '..', 'media', 'phabricator_eye.png')
-	};
 
 	contextValue = 'not-a-dependency';
 }
@@ -465,11 +459,6 @@ export class ReviewDependency extends vscode.TreeItem {
 		this.tooltip = `${this.label}`;
 		this.description = this.uri;
 	}
-
-	iconPath = {
-		light: path.join(__filename, '..', '..', 'resources', 'light', 'dependency.svg'),
-		dark: path.join(__filename, '..', '..', 'media', 'phabricator_eye.png')
-	};
 
 	contextValue = 'dependency';
 }

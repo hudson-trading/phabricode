@@ -11,8 +11,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
@@ -141,7 +140,7 @@
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "vscode-test": "^1.6.1",
-    "webpack": "^5.88.2",
+    "webpack": "^5.99.5",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
