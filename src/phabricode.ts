@@ -305,7 +305,7 @@ export class PhabNodeProvider implements vscode.TreeDataProvider<ReviewDependenc
 		blocksToThreads.forEach((fileComments, filePath) => 			
 			fileComments.forEach(([comments, length], line) => {
 				const thread = this.commentController.createCommentThread(
-					vscode.Uri.parse(path.join(uriRoot, filePath)),
+					vscode.Uri.file(path.join(uriRoot, filePath)),
 					new vscode.Range(line,0,line+length,0),						
 					comments
 				);
